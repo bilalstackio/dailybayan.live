@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "title": "Featured Playlist",
+    "description": "Update this file only. Add YouTube links here and the homepage updates automatically.",
+    "badge": "Data Driven"
+  },
+  "live": {
+    "title": "Live Bayan",
+    "description": "Now playing",
+    "youtubeUrl": "https://youtu.be/yNCE-MbmVC0?si=TL0K9Wp2-x5_deMV"
+  },
+  "sections": [
+    {
+      "id": "trending",
+      "title": "Trending Now",
+      "videos": [
+        {
+          "id": "video-1",
+          "title": "Video 1",
+          "youtubeUrl": "https://youtu.be/yNCE-MbmVC0?si=TL0K9Wp2-x5_deMV"
+        },
+        {
+          "id": "video-2",
+          "title": "Video 2",
+          "youtubeUrl": "https://youtu.be/uijPloctBH0?si=bCin9J-qFGuCXZ5u"
+        }
+      ]
+    },
+    {
+      "id": "dailybayan",
+      "title": "Daily Bayan",
+      "videos": [
+        {
+          "id": "video-4",
+          "title": "Video 3",
+          "youtubeUrl": "https://youtu.be/PKA8VigW4D4?si=coohltuf1b9bJtLy"
+        },
+        {
+          "id": "video-5",
+          "title": "Video 4",
+          "youtubeUrl": "https://youtu.be/xLNzXG8JyiM?si=zjR0I_XUh2mDOZuH"
+        }
+      ]
+    }
+  ]
+}

@@ -91,6 +91,12 @@ button {
   color: #000;
 }
 
+.hero-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
 .ghost {
   background: rgba(109, 109, 110, 0.7);
   color: #fff;
@@ -107,6 +113,53 @@ main {
   font-size: 1.3rem;
 }
 
+.live-section {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.live-header {
+  margin-bottom: 0.9rem;
+}
+
+.live-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: #e50914;
+  color: #fff;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.live-header h2 {
+  font-size: clamp(1.5rem, 2.7vw, 2rem);
+}
+
+.live-description {
+  color: #d0d0d0;
+  margin-top: 0.35rem;
+}
+
+.live-player-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.live-player {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -115,11 +168,28 @@ main {
 
 .card {
   border-radius: 8px;
-  height: 200px;
+  height: 220px;
   background: linear-gradient(135deg, #202020, #101010);
   position: relative;
   overflow: hidden;
   border: 1px solid #252525;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-fallback {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #252525;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.8rem;
 }
 
 .card-overlay {
@@ -136,17 +206,85 @@ main {
   font-size: 1rem;
 }
 
-.card button {
+.play-link {
   width: fit-content;
   background: #e50914;
   color: #fff;
   font-size: 0.8rem;
+  border-radius: 4px;
+  padding: 0.45rem 0.8rem;
+  font-weight: 600;
+  border: 0;
+  cursor: pointer;
+}
+
+.play-link:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.status {
+  color: #ddd;
+  font-size: 0.95rem;
+}
+
+.status.error {
+  color: #ff8080;
 }
 
 .footer {
   color: #a8a8a8;
   font-size: 0.85rem;
   padding: 2rem 4vw;
+}
+
+.player-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.player-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  border: 0;
+}
+
+.player-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1000px, 96vw);
+}
+
+.player-close {
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+  display: block;
+  border: 0;
+  background: #e50914;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.player-frame-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid #262626;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.player-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 @media (max-width: 768px) {

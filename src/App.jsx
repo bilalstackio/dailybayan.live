@@ -1,41 +1,110 @@
-const sections = [
-  {
-    title: "Trending Now",
-    items: ["Arcane", "Money Heist", "Wednesday", "The Gentlemen", "Dark"]
-  },
-  {
-    title: "Top Picks For You",
-    items: ["Stranger Things", "Black Mirror", "Peaky Blinders", "Lupin", "3 Body Problem"]
-  },
-  {
-    title: "Action & Thriller",
-    items: ["Extraction", "The Night Agent", "Rebel Ridge", "Narcos", "The Witcher"]
-  }
-];
+import { useEffect, useState } from "react";
+import { extractYouTubeId, toYouTubeThumbnail } from "./utils/youtube";
 
-function MovieRow({ title, items }) {
+function VideoCard({ video, onWatch }) {
+  const thumbnail = toYouTubeThumbnail(video.youtubeUrl);
+  const videoId = extractYouTubeId(video.youtubeUrl);
+
+  return (
+    <article className="card">
+      {thumbnail ? (
+        <img className="card-image" src={thumbnail} alt={video.title} loading="lazy" />
+      ) : (
+        <div className="card-image card-fallback">Invalid YouTube URL</div>
+      )}
+      <div className="card-overlay">
+        <h3>{video.title}</h3>
+        <button
+          type="button"
+          className="play-link"
+          onClick={() => onWatch(video)}
+          disabled={!videoId}
+        >
+          Watch
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function VideoRow({ title, videos, onWatch }) {
   return (
     <section className="row">
       <h2>{title}</h2>
       <div className="cards">
-        {items.map((item) => (
-          <article key={item} className="card">
-            <div className="card-overlay">
-              <h3>{item}</h3>
-              <button type="button">Play</button>
-            </div>
-          </article>
+        {videos.map((video) => (
+          <VideoCard key={video.id} video={video} onWatch={onWatch} />
         ))}
       </div>
     </section>
   );
 }
 
+function LiveSection({ live }) {
+  const liveId = extractYouTubeId(live?.youtubeUrl);
+  if (!liveId) {
+    return null;
+  }
+
+  return (
+    <section className="live-section">
+      <div className="live-header">
+        <p className="live-pill">LIVE</p>
+        <h2>{live.title || "Live"}</h2>
+        {live.description ? <p className="live-description">{live.description}</p> : null}
+      </div>
+      <div className="live-player-wrap">
+        <iframe
+          className="live-player"
+          src={`https://www.youtube.com/embed/${liveId}?autoplay=1&mute=1&rel=0&playsinline=1`}
+          title={live.title || "Live Video"}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
+  const [videoData, setVideoData] = useState(null);
+  const [error, setError] = useState("");
+  const [activeVideo, setActiveVideo] = useState(null);
+
+  useEffect(() => {
+    async function loadVideos() {
+      try {
+        const response = await fetch("/videos.json");
+        if (!response.ok) {
+          throw new Error(`Failed to load videos.json (${response.status})`);
+        }
+        const data = await response.json();
+        setVideoData(data);
+      } catch (err) {
+        setError(err.message || "Could not load video data");
+      }
+    }
+
+    loadVideos();
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = activeVideo ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeVideo]);
+
+  const hero = videoData?.hero || {
+    badge: "Data Driven",
+    title: "YouTube Video Library",
+    description: "Add YouTube links in videos.json to update this page."
+  };
+
   return (
     <div className="page">
       <header className="top-nav">
-        <div className="brand">NETFLIX</div>
+          <div className="brand">DAILY BAYAN</div>
         <nav>
           <a href="#">Home</a>
           <a href="#">TV Shows</a>
@@ -45,28 +114,57 @@ export default function App() {
       </header>
 
       <section className="hero">
-        <p className="badge">New Release</p>
-        <h1>The Last Kingdom</h1>
-        <p className="hero-copy">
-          A gritty historical drama where fractured kingdoms battle for power, loyalty, and survival.
-        </p>
+        <p className="badge">{hero.badge}</p>
+        <h1>{hero.title}</h1>
+        <p className="hero-copy">{hero.description}</p>
         <div className="hero-actions">
-          <button type="button" className="primary">
-            Play
-          </button>
-          <button type="button" className="ghost">
-            More Info
-          </button>
+          <a className="primary hero-link" href="#content">
+            Browse Videos
+          </a>
         </div>
       </section>
 
-      <main>
-        {sections.map((section) => (
-          <MovieRow key={section.title} title={section.title} items={section.items} />
-        ))}
+      <main id="content">
+        {error && <p className="status error">{error}</p>}
+        {!error && !videoData && <p className="status">Loading videos...</p>}
+        {!error && videoData?.live && <LiveSection live={videoData.live} />}
+        {!error &&
+          videoData?.sections?.map((section) => (
+            <VideoRow
+              key={section.id}
+              title={section.title}
+              videos={section.videos || []}
+              onWatch={setActiveVideo}
+            />
+          ))}
       </main>
 
-      <footer className="footer">Clone project for learning purposes only.</footer>
+      <footer className="footer">Edit `public/videos.json` to scale your catalog.</footer>
+
+      {activeVideo && (
+        <div className="player-modal" role="dialog" aria-modal="true" aria-label={activeVideo.title}>
+          <div className="player-shell">
+            <button type="button" className="player-close" onClick={() => setActiveVideo(null)}>
+              Close
+            </button>
+            <div className="player-frame-wrap">
+              <iframe
+                className="player-frame"
+                src={`https://www.youtube.com/embed/${extractYouTubeId(activeVideo.youtubeUrl)}?autoplay=1&rel=0`}
+                title={activeVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            className="player-backdrop"
+            aria-label="Close video player"
+            onClick={() => setActiveVideo(null)}
+          />
+        </div>
+      )}
     </div>
   );
 }
