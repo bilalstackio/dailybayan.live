@@ -1,0 +1,120 @@
+{
+  "brand": {
+    "title": "DAILY BAYAN",
+    "subtitle": "Ramadan Companion"
+  },
+  "nav": [
+    { "label": "Journey", "href": "#journey" },
+    { "label": "Live", "href": "#live" },
+    { "label": "Schedule", "href": "#schedule" },
+    { "label": "Library", "href": "#library" },
+    { "label": "FAQ", "href": "#faq" },
+    { "label": "Subscribe", "href": "#subscribe" }
+  ],
+  "hero": {
+    "badge": "Ramadan 2026",
+    "title": "A Guided Journey Through Ramadan",
+    "description": "Build consistency in worship, reflection, and community through a structured daily program.",
+    "verse": "Bismillah ir-Rahman ir-Raheem",
+    "primaryCta": { "label": "Watch Live", "href": "#live" },
+    "secondaryCta": { "label": "Open Library", "href": "#library" }
+  },
+  "journeyTracks": [
+    {
+      "id": "quran",
+      "title": "Quran Reflection",
+      "description": "Daily reflection sessions focused on meaning, context, and action.",
+      "cta": "Start Reflection"
+    },
+    {
+      "id": "character",
+      "title": "Character Building",
+      "description": "Practical reminders to improve sincerity, discipline, and adab.",
+      "cta": "Build Habits"
+    },
+    {
+      "id": "community",
+      "title": "Family and Community",
+      "description": "Shared learning tracks for homes, youth circles, and local groups.",
+      "cta": "Join Sessions"
+    }
+  ],
+  "highlights": [
+    { "id": "days", "label": "Program Length", "value": "30 Days" },
+    { "id": "sessions", "label": "Live Sessions", "value": "Daily" },
+    { "id": "format", "label": "Learning Format", "value": "Live + On Demand" }
+  ],
+  "schedule": [
+    {
+      "id": "week-1",
+      "title": "Week 1: Intentions and Structure",
+      "items": [
+        "Renew intentions daily",
+        "Set Quran recitation rhythm",
+        "Create family ibadah routine"
+      ]
+    },
+    {
+      "id": "week-2",
+      "title": "Week 2: Growth in Worship",
+      "items": [
+        "Improve prayer presence",
+        "Strengthen dua consistency",
+        "Avoid common distractions"
+      ]
+    },
+    {
+      "id": "week-3",
+      "title": "Week 3: Service and Reflection",
+      "items": [
+        "Support family and neighbors",
+        "Reflect on personal change",
+        "Increase charity and gratitude"
+      ]
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "t1",
+      "name": "Amina K.",
+      "location": "Chicago",
+      "quote": "This format made it easy for our whole family to stay connected to daily Islamic learning."
+    },
+    {
+      "id": "t2",
+      "name": "Yusuf R.",
+      "location": "Houston",
+      "quote": "The short daily reminders were practical and helped me stay disciplined throughout Ramadan."
+    }
+  ],
+  "faq": [
+    {
+      "id": "f1",
+      "question": "Do I need to attend every live session?",
+      "answer": "No. You can attend live and catch up later through the video library."
+    },
+    {
+      "id": "f2",
+      "question": "Can families use this as a shared program?",
+      "answer": "Yes. The track and schedule format is designed for individual and family participation."
+    },
+    {
+      "id": "f3",
+      "question": "How do I get notified about updates?",
+      "answer": "Use the subscribe section to receive reminders and new content alerts."
+    }
+  ],
+  "subscribe": {
+    "title": "Stay Updated Throughout Ramadan",
+    "description": "Receive reminders and updates when new bayan videos are added.",
+    "placeholder": "Enter your email",
+    "buttonLabel": "Notify Me"
+  },
+  "footer": {
+    "note": "Content is managed from public/site-content.json and public/videos.json.",
+    "links": [
+      { "label": "Privacy", "href": "#" },
+      { "label": "Terms", "href": "#" }
+    ]
+  }
+}
