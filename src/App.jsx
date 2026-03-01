@@ -104,12 +104,15 @@ export default function App() {
   return (
     <div className="page">
       <header className="top-nav">
+        <div className="brand-wrap">
           <div className="brand">DAILY BAYAN</div>
+          <p className="brand-subtitle">Islamic Video Library</p>
+        </div>
         <nav>
           <a href="#">Home</a>
-          <a href="#">TV Shows</a>
-          <a href="#">Movies</a>
-          <a href="#">My List</a>
+          <a href="#content">Bayan</a>
+          <a href="#content">Lectures</a>
+          <a href="#content">Live</a>
         </nav>
       </header>
 
@@ -117,6 +120,7 @@ export default function App() {
         <p className="badge">{hero.badge}</p>
         <h1>{hero.title}</h1>
         <p className="hero-copy">{hero.description}</p>
+        <p className="hero-verse">Bismillah ir-Rahman ir-Raheem</p>
         <div className="hero-actions">
           <a className="primary hero-link" href="#content">
             Browse Videos
