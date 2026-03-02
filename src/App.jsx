@@ -58,13 +58,13 @@ export default function App() {
     <div className="page">
       <PrayerTimesBar />
       <NavBar brand={siteContent.brand} nav={siteContent.nav} />
+      <LiveSection id="live" live={videoData.live} />
       <HeroSection hero={siteContent.hero} />
 
       <main id="library" className="content">
         {loading && <p className="status">Loading content...</p>}
         {!loading && error && <p className="status error">{error}</p>}
 
-        <LiveSection id="live" live={videoData.live} />
         {videoData.sections.map((section) => (
           <VideoRow
             key={section.id}
