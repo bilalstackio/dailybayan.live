@@ -20,24 +20,40 @@ export default function SubscribeSection({ id, subscribe }) {
     setMessage("");
 
     try {
-      let response;
+      const subscribePayload = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      };
+      const configuredApiBase = String(import.meta.env.VITE_SUBSCRIBE_API_URL || "").trim();
+      const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+      const apiTargets = [];
 
-      try {
-        response = await fetch("/api/subscribe", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ email })
-        });
-      } catch {
-        response = await fetch("http://localhost:8787/api/subscribe", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ email })
-        });
+      if (configuredApiBase) {
+        apiTargets.push(`${configuredApiBase.replace(/\/+$/, "")}/api/subscribe`);
+      }
+
+      apiTargets.push("/api/subscribe");
+
+      if (isLocalHost) {
+        apiTargets.push("http://localhost:8787/api/subscribe");
+      }
+
+      let response = null;
+      let lastError = null;
+      for (const target of apiTargets) {
+        try {
+          response = await fetch(target, subscribePayload);
+          break;
+        } catch (error) {
+          lastError = error;
+        }
+      }
+
+      if (!response) {
+        throw lastError || new Error("Subscribe API is unreachable.");
       }
 
       const payload = await response.json().catch(() => ({}));
@@ -52,7 +68,11 @@ export default function SubscribeSection({ id, subscribe }) {
       setMessageType("success");
       setEmail("");
     } catch {
-      setMessage("Could not subscribe right now. Please try again.");
+      const hasConfiguredApi = Boolean(String(import.meta.env.VITE_SUBSCRIBE_API_URL || "").trim());
+      const localHint = hasConfiguredApi
+        ? ""
+        : " Subscribe API is not configured for this domain.";
+      setMessage(`Could not subscribe right now.${localHint}`);
       setMessageType("error");
     } finally {
       setSubmitting(false);

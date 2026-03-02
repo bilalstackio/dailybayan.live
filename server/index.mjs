@@ -4,7 +4,7 @@ import { upsertSubscriber, validateEmail } from "../scripts/lib/subscribers.js";
 
 dotenv.config();
 
-const PORT = Number(process.env.SUBSCRIBE_PORT || 8787);
+const PORT = Number(process.env.PORT || process.env.SUBSCRIBE_PORT || 8787);
 const ORIGIN = process.env.SUBSCRIBE_ALLOWED_ORIGIN || "*";
 
 function setCorsHeaders(res) {
