@@ -71,7 +71,7 @@ export default function SubscribeSection({ id, subscribe }) {
       const hasConfiguredApi = Boolean(String(import.meta.env.VITE_SUBSCRIBE_API_URL || "").trim());
       const localHint = hasConfiguredApi
         ? ""
-        : " Subscribe API is not configured for this domain.";
+        : " Subscribe API is not configured for this domain. Set VITE_SUBSCRIBE_API_URL.";
       setMessage(`Could not subscribe right now.${localHint}`);
       setMessageType("error");
     } finally {

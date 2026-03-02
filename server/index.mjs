@@ -5,16 +5,51 @@ import { upsertSubscriber, validateEmail } from "../scripts/lib/subscribers.js";
 dotenv.config();
 
 const PORT = Number(process.env.PORT || process.env.SUBSCRIBE_PORT || 8787);
-const ORIGIN = process.env.SUBSCRIBE_ALLOWED_ORIGIN || "*";
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://dailybayan.live",
+  "https://www.dailybayan.live",
+  "http://localhost:5173"
+];
+const ALLOWED_ORIGINS = String(process.env.SUBSCRIBE_ALLOWED_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
-function setCorsHeaders(res) {
-  res.setHeader("Access-Control-Allow-Origin", ORIGIN);
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+function getAllowedOrigins() {
+  if (ALLOWED_ORIGINS.length) {
+    return ALLOWED_ORIGINS;
+  }
+  return DEFAULT_ALLOWED_ORIGINS;
 }
 
-function sendJson(res, statusCode, payload) {
-  setCorsHeaders(res);
+function resolveCorsOrigin(requestOrigin) {
+  const allowedOrigins = getAllowedOrigins();
+  if (!requestOrigin) {
+    return allowedOrigins[0] || "*";
+  }
+  if (allowedOrigins.includes("*")) {
+    return "*";
+  }
+  if (allowedOrigins.includes(requestOrigin)) {
+    return requestOrigin;
+  }
+  return "";
+}
+
+function setCorsHeaders(res, requestOrigin) {
+  const allowedOrigin = resolveCorsOrigin(requestOrigin);
+  if (!allowedOrigin) {
+    return false;
+  }
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Vary", "Origin");
+  return true;
+}
+
+function sendJson(res, statusCode, payload, requestOrigin) {
+  setCorsHeaders(res, requestOrigin);
   res.writeHead(statusCode, { "Content-Type": "application/json" });
   res.end(JSON.stringify(payload));
 }
@@ -35,11 +70,27 @@ function readRequestBody(req) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || "/", `http://${req.headers.host}`);
+  const requestOrigin = String(req.headers.origin || "");
+  const isCorsAllowed = setCorsHeaders(res, requestOrigin);
 
   if (req.method === "OPTIONS") {
-    setCorsHeaders(res);
+    if (!isCorsAllowed && requestOrigin) {
+      res.writeHead(403);
+      res.end();
+      return;
+    }
     res.writeHead(204);
     res.end();
+    return;
+  }
+
+  if (!isCorsAllowed && requestOrigin) {
+    sendJson(res, 403, { error: "Origin is not allowed for this API." }, requestOrigin);
+    return;
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/health") {
+    sendJson(res, 200, { ok: true }, requestOrigin);
     return;
   }
 
@@ -50,7 +101,7 @@ const server = http.createServer(async (req, res) => {
       const email = String(body.email || "").trim();
 
       if (!validateEmail(email)) {
-        sendJson(res, 400, { error: "Please enter a valid email address." });
+        sendJson(res, 400, { error: "Please enter a valid email address." }, requestOrigin);
         return;
       }
 
@@ -61,18 +112,23 @@ const server = http.createServer(async (req, res) => {
         exists: "You are already subscribed."
       };
 
-      sendJson(res, 200, {
-        status: result.status,
-        message: messageByStatus[result.status] || "Subscription updated."
-      });
+      sendJson(
+        res,
+        200,
+        {
+          status: result.status,
+          message: messageByStatus[result.status] || "Subscription updated."
+        },
+        requestOrigin
+      );
       return;
     } catch (error) {
-      sendJson(res, 500, { error: error.message || "Failed to subscribe." });
+      sendJson(res, 500, { error: error.message || "Failed to subscribe." }, requestOrigin);
       return;
     }
   }
 
-  sendJson(res, 404, { error: "Not found" });
+  sendJson(res, 404, { error: "Not found" }, requestOrigin);
 });
 
 server.listen(PORT, () => {
