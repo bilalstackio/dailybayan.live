@@ -5,8 +5,8 @@
     "badge": "Data Driven"
   },
   "live": {
-    "title": "Live Bayan",
-    "description": "Now playing",
+    "title": "Haram Live",
+    "description": "Haram Live is a live stream of the Haram from the Makkah).",
     "youtubeUrl": "https://www.youtube.com/live/Cm1v4bteXbI",
     "autoplay": true,
     "mute": true

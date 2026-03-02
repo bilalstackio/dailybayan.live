@@ -1,3 +1,81 @@
+.prayer-banner {
+  margin: 1rem 4vw 0.2rem;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(240, 219, 153, 0.35);
+  background:
+    radial-gradient(340px 140px at 0% 0%, rgba(240, 219, 153, 0.18), transparent),
+    radial-gradient(420px 180px at 100% 100%, rgba(54, 129, 109, 0.36), transparent),
+    linear-gradient(150deg, rgba(14, 40, 37, 0.96), rgba(9, 26, 23, 0.96));
+  box-shadow: 0 16px 34px rgba(1, 7, 6, 0.4);
+  display: grid;
+  gap: 0.95rem;
+}
+
+.prayer-banner-main {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.prayer-eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  color: #1a160e;
+  background: linear-gradient(120deg, #d2ab46, #f1dd9b);
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 0.22rem 0.65rem;
+  letter-spacing: 0.3px;
+}
+
+.prayer-banner h2 {
+  color: var(--gold-2);
+  font-size: clamp(1.2rem, 2.6vw, 1.9rem);
+  line-height: 1.2;
+}
+
+.prayer-countdown {
+  color: #fff;
+  text-shadow: 0 0 22px rgba(240, 219, 153, 0.38);
+}
+
+.prayer-meta {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.prayer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.prayer-chip {
+  border-radius: 10px;
+  border: 1px solid rgba(240, 219, 153, 0.24);
+  background: rgba(7, 27, 24, 0.72);
+  padding: 0.62rem 0.66rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.prayer-chip span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.prayer-chip strong {
+  color: var(--gold-2);
+  font-size: 0.94rem;
+}
+
+.prayer-chip.active {
+  border-color: rgba(240, 219, 153, 0.58);
+  background: linear-gradient(135deg, rgba(210, 171, 70, 0.2), rgba(30, 86, 76, 0.42));
+  box-shadow: inset 0 0 0 1px rgba(240, 219, 153, 0.2);
+}
+
 .badge {
   display: inline-block;
   background: linear-gradient(120deg, #be9532, #f4df99);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "./components/Layout/NavBar.jsx";
 import HeroSection from "./components/Hero/HeroSection.jsx";
+import PrayerTimesBar from "./components/Prayer/PrayerTimesBar.jsx";
 import JourneySection from "./components/Journey/JourneySection.jsx";
 import HighlightsStrip from "./components/Highlights/HighlightsStrip.jsx";
 import LiveSection from "./components/Live/LiveSection.jsx";
@@ -55,6 +56,7 @@ export default function App() {
 
   return (
     <div className="page">
+      <PrayerTimesBar />
       <NavBar brand={siteContent.brand} nav={siteContent.nav} />
       <HeroSection hero={siteContent.hero} />
 
@@ -62,11 +64,7 @@ export default function App() {
         {loading && <p className="status">Loading content...</p>}
         {!loading && error && <p className="status error">{error}</p>}
 
-        <JourneySection id="journey" tracks={siteContent.journeyTracks} />
-        <HighlightsStrip items={siteContent.highlights} />
         <LiveSection id="live" live={videoData.live} />
-        <ScheduleSection id="schedule" schedule={siteContent.schedule} />
-
         {videoData.sections.map((section) => (
           <VideoRow
             key={section.id}
@@ -76,6 +74,10 @@ export default function App() {
             onWatch={setActiveVideo}
           />
         ))}
+
+        <JourneySection id="journey" tracks={siteContent.journeyTracks} />
+        <HighlightsStrip items={siteContent.highlights} />
+        <ScheduleSection id="schedule" schedule={siteContent.schedule} />
 
         <TestimonialsSection id="testimonials" testimonials={siteContent.testimonials} />
         <FaqSection id="faq" faq={siteContent.faq} openFaqId={openFaqId} setOpenFaqId={setOpenFaqId} />
