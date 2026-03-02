@@ -41,17 +41,17 @@
     },
     {
       "id": "dailybayan",
-      "title": "Daily Bayan",
+      "title": "Ramadan 12 Bayan",
       "videos": [
         {
           "id": "video-4",
-          "title": "Video 3",
-          "youtubeUrl": "https://youtu.be/PKA8VigW4D4?si=coohltuf1b9bJtLy"
+          "title": "Today's Bayan 1",
+          "youtubeUrl": "https://youtu.be/6NLWivkwh3c?si=4wxHIp1dz1RoT_hg"
         },
         {
           "id": "video-5",
-          "title": "Video 4",
-          "youtubeUrl": "https://youtu.be/xLNzXG8JyiM?si=zjR0I_XUh2mDOZuH"
+          "title": "Today's Bayan 2",
+          "youtubeUrl": "https://youtu.be/hhZ3OZhmgP0?si=nDOspqCawQTyGUah"
         }
       ]
     }
