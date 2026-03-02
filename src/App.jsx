@@ -71,6 +71,7 @@ export default function App() {
           <VideoRow
             key={section.id}
             title={section.title}
+            description={section.description}
             videos={section.videos}
             onWatch={setActiveVideo}
           />

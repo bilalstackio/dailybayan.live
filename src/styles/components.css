@@ -207,6 +207,12 @@
   font-size: 1.3rem;
 }
 
+.row-description {
+  color: var(--muted);
+  margin-top: 0.25rem;
+  font-size: 0.92rem;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));

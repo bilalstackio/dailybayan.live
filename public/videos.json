@@ -14,17 +14,28 @@
   "sections": [
     {
       "id": "trending",
-      "title": "Trending Now",
+      "title": "Trending Playlists",
+      "description": "Updated daily with new playlist picks.",
       "videos": [
         {
           "id": "video-1",
-          "title": "Video 1",
-          "youtubeUrl": "https://youtu.be/yNCE-MbmVC0?si=TL0K9Wp2-x5_deMV"
+          "title": "Mufti Tariq Masood",
+          "youtubeUrl": "https://www.youtube.com/watch?v=6NLWivkwh3c&list=PLxD3yTnAdbnm9Y1eB43h29CWybpGkbIDu"
         },
         {
           "id": "video-2",
-          "title": "Video 2",
-          "youtubeUrl": "https://youtu.be/uijPloctBH0?si=bCin9J-qFGuCXZ5u"
+          "title": "Molana Tariq Jameel",
+          "youtubeUrl": "https://www.youtube.com/watch?v=uNhTk8TyglA&list=PLkXqiFExuaQG0g1r8ndqGQLNnYcc3X5PX"
+        },
+        {
+          "id": "video-3",
+          "title": "Dr Zakir Naik",
+          "youtubeUrl": "https://www.youtube.com/watch?v=ewHIt24nJOk&list=PLEyrm5ysmHBqVG03e8jdh7JLz1ABkvYun"
+        },
+        {
+          "id": "video-4",
+          "title": "Dr Israr Ahmad",
+          "youtubeUrl": "https://www.youtube.com/watch?v=OewRZRUL1Ic&list=PLx_YReoBKzmTyD8jSfdP-0GQY5sTmawU9"
         }
       ]
     },

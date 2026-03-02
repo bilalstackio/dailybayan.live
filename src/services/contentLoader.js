@@ -176,6 +176,7 @@ function normalizeVideoData(raw = {}) {
       ? raw.sections.map((section, sectionIndex) => ({
           id: section.id || section.title || `section-${sectionIndex + 1}`,
           title: section.title || "Section",
+          description: section.description || "",
           videos: Array.isArray(section.videos)
             ? section.videos.map((video, videoIndex) => ({
                 id: video.id || video.title || `video-${sectionIndex + 1}-${videoIndex + 1}`,

@@ -27,11 +27,12 @@ function VideoCard({ video, onWatch }) {
   );
 }
 
-export default function VideoRow({ title, videos, onWatch }) {
+export default function VideoRow({ title, description, videos, onWatch }) {
   return (
     <section className="row">
       <div className="section-heading">
         <h2>{title}</h2>
+        {description ? <p className="row-description">{description}</p> : null}
       </div>
       <div className="cards">
         {(videos || []).map((video) => (
