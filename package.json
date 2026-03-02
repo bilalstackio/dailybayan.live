@@ -6,11 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "node server/index.mjs",
+    "subscribe:add": "node scripts/addSubscriber.mjs",
+    "notify:today-bayan": "node scripts/sendTodayBayanUpdate.mjs",
+    "notify:test": "node scripts/sendTestEmail.mjs"
   },
   "dependencies": {
+    "dotenv": "^16.6.1",
+    "nodemailer": "^7.0.10",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
