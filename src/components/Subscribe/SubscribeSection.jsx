@@ -20,13 +20,25 @@ export default function SubscribeSection({ id, subscribe }) {
     setMessage("");
 
     try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email })
-      });
+      let response;
+
+      try {
+        response = await fetch("/api/subscribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email })
+        });
+      } catch {
+        response = await fetch("http://localhost:8787/api/subscribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email })
+        });
+      }
 
       const payload = await response.json().catch(() => ({}));
 
